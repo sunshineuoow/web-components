@@ -1,0 +1,13 @@
+<script>
+  var dialogProto = Object.create(HTMLElement.prototype)
+  dialogProto.createdCallback = function() {
+    this.innerHTML = 'Hello, <b>' + (this.getAttribute('name') || 'web component')  + '</b>'
+  }
+  document.registerElement('my-dialog', { prototype: dialogProto })
+
+  var myDivProto = Object.create(HTMLElement.prototype)
+  myDivProto.createdCallback = function() {
+    this.innerHTML = 'This is my div'
+  }
+  document.registerElement('my-div', { prototype: myDivProto, extends: 'div' })
+</script>

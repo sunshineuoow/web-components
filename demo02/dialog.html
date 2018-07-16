@@ -1,0 +1,28 @@
+<template id="my-dialog">
+  <style>
+    b {
+      color: red;
+    }
+    ::content > * {
+      color: blue;
+    }
+  </style>
+  <p>Hello, <b>shadow DOM!</b></p>
+  <content></content>
+</template>
+
+<script>
+  (function() {
+    var importDoc = document.currentScript.ownerDocument
+
+    var dialogProto = Object.create(HTMLElement.prototype)
+    dialogProto.createdCallback = function() {
+      var template = importDoc.querySelector('#my-dialog')
+      var clone = document.importNode(template.content, true)
+      var root = this.createShadowRoot()
+      root.appendChild(clone)
+    }
+
+    document.registerElement('my-dialog', { prototype: dialogProto })
+  })()
+</script>
